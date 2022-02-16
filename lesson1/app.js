@@ -30,7 +30,7 @@ const fs = require('fs');
 // Потім створити в вашому головному файлі (для прикладу app.js) два масиви з обєктами user ({. name: "Andrii", age: 22, city: "Lviv" }),
 // відповідно перший - onlineUsers, другий - inPersonUsers;
 let user1 = {name: "Andrii", age: 22, city: "Lviv"};
-let user2 = {name: "Inna",age: 38,city: "Vyshhorod"};
+let user2 = {name: "Inna", age: 38, city: "Vyshhorod"};
 let onlineUsers = [user1];
 let inPersonUsers = [user2];
 
@@ -61,5 +61,55 @@ let inPersonUsers = [user2];
 
 // Коли ви це виконаєте напишіть функцію яка буде міняти місцями юзерів з одного файлу і папки в іншу.
 // (ті, що були в папці inPerson будуть в папці online)
+function toСhangePlaces() {
+    fs.readFile(path.join(__dirname, 'main', 'inPerson', 'file.txt'),
+        (err, data) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            fs.readFile(path.join(__dirname, 'main', 'online', 'file.txt'),
+                (err1, data1) => {
+                    if (err1) {
+                        console.log(err1);
+                        throw err1;
+                    }
+                    fs.truncate(path.join(__dirname, 'main', 'inPerson', 'file.txt'),
+                        (err2) => {
+                            if (err2) {
+                                console.log(err2);
+                                throw err2;
+                            }
+                            fs.truncate(path.join(__dirname, 'main', 'online', 'file.txt'),
+                                (err3) => {
+                                    if (err3) {
+                                        console.log(err3);
+                                        throw err3;
+                                    }
+                                    fs.appendFile(path.join(__dirname, 'main', 'inPerson', 'file.txt'),
+                                        data1,
+                                        (err4) => {
+                                            if (err4) {
+                                                console.log(err4);
+                                                throw err4;
+                                            }
+                                            fs.appendFile(path.join(__dirname, 'main', 'online', 'file.txt'),
+                                                data,
+                                                (err5) => {
+                                                    if (err5) {
+                                                        console.log(err5);
+                                                        throw err5;
+                                                    }
 
+                                                })
+
+                                        })
+
+
+                                });
+                        });
+                });
+
+        })
+}
 
