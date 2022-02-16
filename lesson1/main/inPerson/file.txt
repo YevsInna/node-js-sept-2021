@@ -1,6 +1,6 @@
 
-NAME: Andrii
+NAME: Inna
     
-AGE: 22
+AGE: 38
     
-CITY: Lviv
+CITY: Vyshhorod
