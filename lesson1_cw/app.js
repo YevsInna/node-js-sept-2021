@@ -105,3 +105,42 @@ const path = require("path");
 //     });
 // і напишіть функцію яка буде зчитувати папку і перевіряти якщо дані які в ній лежать - це файли тоді вам потрібно їх очистити,
 //     але не видаляти, якщо дані - це папки, вам потрібно їх перейменувати і додати до назви префікс _new
+
+function pathCheck() {
+    fs.readdir(path.join(__dirname, 'newDir2'),
+        (err, data) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            data.forEach((item) => {
+                fs.stat(path.join(__dirname, 'newDir2', item),
+                    (err1, stats) => {
+                        if (err1) {
+                            console.log(err1);
+                            throw err1;
+                        }
+                        if (stats.isFile()) {
+                            fs.truncate(path.join(__dirname, 'newDir2', item),
+                                (err3) => {
+                                    if (err3) {
+                                        console.log(err3);
+                                        throw err3
+                                    } else {
+                                        fs.rename(path.join(__dirname, 'newDir2', item),
+                                            path.join(__dirname, 'newDir2', `_new${item}`),
+                                            (err4) => {
+                                                if (err4) {
+                                                    console.log(err4);
+                                                    throw err4;
+                                                }
+                                            });
+                                    }
+                                });
+                        }
+                    });
+            });
+        });
+};
+
+pathCheck();
