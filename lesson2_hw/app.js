@@ -19,6 +19,7 @@ let error = '';
 app.get('/login', (req, res) => {
     res.render('login')
 });
+
 app.get('/users', ({query}, res) => {
     if (Object.keys(query).length) {
         let usersWithQuery = [...users];
@@ -61,9 +62,29 @@ app.get('/error', (req, res) => {
     res.render('error', {error});
 });
 
+app.get('/signIn', (req, res) => {
+    res.render('signIn')
+});
+
+app.post('/signIn',({body},res)=>{
+    const user = users.find(user => user.email === body.email && user.password === body.password);
+    if (!user){
+       error = 'Incorrect data entered!';
+       res.redirect('error');
+       return;
+    }
+    res.redirect(`/users/${user.id}`)
+})
+
 app.use((req, res) => {
     res.render('notFound')
 })
 app.listen(5200, () => {
     console.log('Server started on PORT 5200')
 });
+
+// Необхідно розширити ваше ДЗ:
+// - додайте ендпоінт signIn який буде приймати email і password і якщо все вірно то редірект на сторінку цього user
+//
+// * хто хоче складніше реалізуйте видалення користувача. Кнопка повинна знаходитись на сторінці
+// з інфою про одного юзера. Після видалення редірект на "/users"
