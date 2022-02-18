@@ -16,6 +16,9 @@
             <p>Email: {{user.email}}</p>
             <p>Age: {{user.age}}</p>
             <p>City: {{user.city}}</p>
+            <form action="/users/:userId" method="delete">
+                <input type="submit" value="Delete">
+            </form>
         </div>
     </div>
 

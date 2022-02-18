@@ -45,6 +45,15 @@ app.get('/users/:userId', ({params}, res) => {
     }
     res.render('user', {user});
 });
+app.delete('/users/:userId', ({query}, res) => {
+    let index = users.findIndex(user => user.id === query.id);
+    if (index){
+        users.splice(index, 1);
+        res.redirect('/users');
+        return
+    };
+
+});
 // просто зробити темплейт з цим усім і вводити свої дані які будуть пушитися в масив і редірект робити на сторінку
 // з усіма юзерами /users і перевірка чи такий імейл не існує, якщо існує то редірект на еррор пейдж
 app.post('/login', ({body}, res) => {
