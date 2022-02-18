@@ -126,21 +126,24 @@ function pathCheck() {
                                     if (err3) {
                                         console.log(err3);
                                         throw err3
-                                    } else {
-                                        fs.rename(path.join(__dirname, 'newDir2', item),
-                                            path.join(__dirname, 'newDir2', `_new${item}`),
-                                            (err4) => {
-                                                if (err4) {
-                                                    console.log(err4);
-                                                    throw err4;
-                                                }
-                                            });
+                                    }
+                                })
+                        } else {
+                            fs.rename(path.join(__dirname, 'newDir2', item),
+                                path.join(__dirname, 'newDir2', `_new${item}`),
+                                (err4) => {
+                                    if (err4) {
+                                        console.log(err4);
+                                        throw err4;
                                     }
                                 });
                         }
-                    });
+                    }
+                );
             });
-        });
-};
+        }
+    )
+}
+
 
 pathCheck();
