@@ -1,12 +1,13 @@
 const {Router} = require('express');
-const users = require('../dataBase/users');
 const signInController = require('../controllers/signInController');
+const isEmailExist = require('../middleware/isEmailExist');
+const isAllDataExist = require('../middleware/isAllDataExist');
 
 const signInRouter = Router();
 
-signInRouter.get('/', signInController.renderSignIn);
+signInRouter.get('/', isEmailExist, signInController.renderSignIn);
 
-signInRouter.post('/', signInController.renderUser);
+signInRouter.post('/', isAllDataExist, signInController.renderUser);
 
 
 module.exports = signInRouter;
