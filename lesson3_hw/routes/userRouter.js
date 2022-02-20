@@ -8,8 +8,8 @@ const userRouter = Router();
 userRouter.get('/', userController.renderUsers);
 
 //                  '/users/userId'
-userRouter.get('/userId', userController.getUserById);
+userRouter.get('/:userId', userController.getUserById);
 
-userRouter.post('/userId', userController.getUserById);
+userRouter.post('/:userId', userController.getUserById);
 
 module.exports = userRouter;

@@ -21,31 +21,25 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/users', ({query}, res) => {
-
     if (Object.keys(query).length) {
         let usersWithQuery = [...users];
 
         if (query.city) {
             usersWithQuery = usersWithQuery.filter(user => user.city === query.city);
         }
-        ;
 
         if (query.age) {
             usersWithQuery = usersWithQuery.filter(user => user.age === query.age)
         }
-        ;
 
         res.render('users', {users: usersWithQuery});
-
         return;
     }
-    ;
-    ;
+
     res.render('users', {users});
 });
 // 3. /user/:id сторінка з інфою про одного юзера
 app.get('/users/:userId', ({params}, res) => {
-
     const user = users.find(user => user.id === +params.userId);
 
     if (!user) {
@@ -53,26 +47,18 @@ app.get('/users/:userId', ({params}, res) => {
         res.redirect('/error');
         return;
     }
-    ;
 
     res.render('user', {user});
 });
 
 app.post('/users/:userId', ({params}, res) => {
-
-    let index = users.findIndex(user => user.id === params.id);
-
-    if (index) {
-        users.splice(index, 1);
-        res.redirect('/users');
-        return;
-    }
-    ;
+    // let index = users.findIndex(user => user.id === +params.userId);
+    const newUsersArr = users.filter(user => user.id !== +params.userId);
+    res.redirect('/users', {users: newUsersArr})
 });
 // просто зробити темплейт з цим усім і вводити свої дані які будуть пушитися в масив і редірект робити на сторінку
 // з усіма юзерами /users і перевірка чи такий імейл не існує, якщо існує то редірект на еррор пейдж
 app.post('/login', ({body}, res) => {
-
     const isUserAlreadyExist = users.some(user => user.email === body.email);
 
     if (isUserAlreadyExist) {
@@ -80,7 +66,6 @@ app.post('/login', ({body}, res) => {
         res.redirect('error');
         return;
     }
-    ;
 
     users.push({...body, id: users.length ? users[users.length - 1].id + 1 : 1});
     res.redirect('/users')
@@ -95,7 +80,6 @@ app.get('/signIn', (req, res) => {
 });
 
 app.post('/signIn', ({body}, res) => {
-
     const user = users.find(user => user.email === body.email && user.password === body.password);
 
     if (!user) {
@@ -103,7 +87,6 @@ app.post('/signIn', ({body}, res) => {
         res.redirect('error');
         return;
     }
-    ;
 
     res.redirect(`/users/${user.id}`);
 });

@@ -36,11 +36,12 @@ class UserController {
     }
 
     deleteUserById({params}, res){
-        let index = users.findIndex(user => user.id === params.id);
+        let index = users.findIndex(user => user.id === +params.userId);
 
         if (index) {
             users.splice(index, 1);
             res.redirect('/users');
+            return;
         }
     }
 }
