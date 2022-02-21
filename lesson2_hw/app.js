@@ -13,7 +13,7 @@ app.set('view engine', '.hbs');
 app.engine('hbs', engine({defaultLayout: false}));
 app.set('views', path.join(__dirname, 'static'));
 
-const users = [];
+let users = [];
 let error = '';
 
 app.get('/login', (req, res) => {
@@ -52,9 +52,10 @@ app.get('/users/:userId', ({params}, res) => {
 });
 
 app.post('/users/:userId', ({params}, res) => {
-    // let index = users.findIndex(user => user.id === +params.userId);
-    const newUsersArr = users.filter(user => user.id !== +params.userId);
-    res.redirect('/users', {users: newUsersArr})
+    console.log(params);
+    users = users.filter(user => user.id !== +params.userId);
+
+    res.redirect('/users')
 });
 // просто зробити темплейт з цим усім і вводити свої дані які будуть пушитися в масив і редірект робити на сторінку
 // з усіма юзерами /users і перевірка чи такий імейл не існує, якщо існує то редірект на еррор пейдж
