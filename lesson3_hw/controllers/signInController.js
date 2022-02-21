@@ -2,11 +2,12 @@ const users = require("../dataBase/users");
 
 let error = '';
 
-class SignInController{
-    renderSignIn(req,res){
+class SignInController {
+    renderSignIn(req, res) {
         res.render('signIn');
     }
-    renderUser({body},res){
+
+    renderUser({body}, res) {
         const user = users.find(user => user.email === body.email && user.password === body.password);
 
         if (!user) {

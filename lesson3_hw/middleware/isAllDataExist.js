@@ -1,5 +1,6 @@
 // і другу мідлвару /login чи користувач ввів всі data
 function isAllDataExist(req,res,next){
+
     try {
         const {firstName,lastName,email,password,age,city} = req.body;
         if (!firstName || !lastName || !email || !password || !age || !city){

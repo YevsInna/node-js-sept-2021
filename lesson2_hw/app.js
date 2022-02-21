@@ -52,7 +52,6 @@ app.get('/users/:userId', ({params}, res) => {
 });
 
 app.post('/users/:userId', ({params}, res) => {
-    console.log(params);
     users = users.filter(user => user.id !== +params.userId);
 
     res.redirect('/users')

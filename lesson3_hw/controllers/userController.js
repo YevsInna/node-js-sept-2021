@@ -1,4 +1,4 @@
-const users = require("../dataBase/users");
+let users = require("../dataBase/users");
 
 let error = '';
 
@@ -24,7 +24,7 @@ class UserController {
         res.render('users', {users});
     }
 
-    getUserById({params},res){
+    getUserById({params}, res) {
         const user = users.find(user => user.id === +params.userId);
 
         if (!user) {
@@ -35,14 +35,9 @@ class UserController {
         res.render('user', {user});
     }
 
-    deleteUserById({params}, res){
-        let index = users.findIndex(user => user.id === +params.userId);
-
-        if (index) {
-            users.splice(index, 1);
-            res.redirect('/users');
-            return;
-        }
+    deleteUserById({params}, res) {
+        users = users.filter(user => user.id !== +params.userId);
+        res.redirect('/users')
     }
 }
 
